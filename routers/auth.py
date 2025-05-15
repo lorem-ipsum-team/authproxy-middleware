@@ -13,7 +13,7 @@ async def token():
     return RedirectResponse(auth_url)
 
 
-@router.get("/callback", response_model=Tokens)
+@router.post("/callback", response_model=Tokens)
 async def callback(code=Query(...)):
     try:
         tokens = await keycloak_openid.a_token(
