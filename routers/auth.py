@@ -12,6 +12,9 @@ async def token():
     auth_url = await keycloak_openid.a_auth_url(redirect_uri=REDIRECT_URI)
     return RedirectResponse(auth_url)
 
+@router.post("/logout")
+async def logout(refresh_token=Query(...)):
+    await keycloak_openid.a_logout(refresh_token)
 
 @router.post("/callback", response_model=Tokens)
 async def callback(code=Query(...)):
